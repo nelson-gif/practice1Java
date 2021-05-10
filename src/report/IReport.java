@@ -1,5 +1,7 @@
 package report;
 
+import domain.AmountOfPokemons;
+
 public interface IReport {
     
     void gameRegistration(String player1, String pokemon1Player1,
@@ -9,9 +11,7 @@ public interface IReport {
             int numberHitPokemon2Player2, 
             String winner);
     
-    void mostUsedPokemon();
-    
-    void lessUsedPokemon();
+    AmountOfPokemons[] arrayOrderedWithPokemonsAndCounter();
     
     void playersWhoILost();
     
