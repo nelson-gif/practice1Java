@@ -103,10 +103,14 @@ public class AccessDataImpl implements IAccessData{
     public boolean alive(String pokemon){
         boolean variable = false;
         for(Pokemon element: pokemons){
-            if (element.getName().equals(pokemon)) {
-                if (element.getLife() >0) {
-                    variable = true;
+            if (element != null) {
+                if (element.getName().equals(pokemon)) {
+                    if (element.getLife() >0) {
+                        variable = true;
+                    }
+                    break;
                 }
+            }else{
                 break;
             }
         }

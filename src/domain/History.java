@@ -10,17 +10,11 @@ public class History {
     private String pokemon2Player2;
     private int numberFightPlayer1;
     private int numberFightPlayer2;
-    private int numberHitPokemon1Player1;
-    private int numberHitPokemon2Player1;
-    private int numberHitPokemon1Player2;
-    private int numberHitPokemon2Player2;
     private String winner;
 
     public History(int numberOfFight, String player1, String pokemon1Player1, 
             String pokemon2Player1, String player2, String pokemon1Player2, 
-            String pokemon2Player2, int numberFightPlayer1, int numberFightPlayer2, 
-            int numberHitPokemon1Player1, int numberHitPokemon2Player1, 
-            int numberHitPokemon1Player2, int numberHitPokemon2Player2, String winner) {
+            String pokemon2Player2, int numberFightPlayer1, int numberFightPlayer2, String winner) {
         this.numberOfFight = numberOfFight;
         this.player1 = player1;
         this.pokemon1Player1 = pokemon1Player1;
@@ -30,10 +24,6 @@ public class History {
         this.pokemon2Player2 = pokemon2Player2;
         this.numberFightPlayer1 = numberFightPlayer1;
         this.numberFightPlayer2 = numberFightPlayer2;
-        this.numberHitPokemon1Player1 = numberHitPokemon1Player1;
-        this.numberHitPokemon2Player1 = numberHitPokemon2Player1;
-        this.numberHitPokemon1Player2 = numberHitPokemon1Player2;
-        this.numberHitPokemon2Player2 = numberHitPokemon2Player2;
         this.winner = winner;
     }
 
@@ -109,38 +99,6 @@ public class History {
         this.numberFightPlayer2 = numberFightPlayer2;
     }
 
-    public int getNumberHitPokemon1Player1() {
-        return numberHitPokemon1Player1;
-    }
-
-    public void setNumberHitPokemon1Player1(int numberHitPokemon1Player1) {
-        this.numberHitPokemon1Player1 = numberHitPokemon1Player1;
-    }
-
-    public int getNumberHitPokemon2Player1() {
-        return numberHitPokemon2Player1;
-    }
-
-    public void setNumberHitPokemon2Player1(int numberHitPokemon2Player1) {
-        this.numberHitPokemon2Player1 = numberHitPokemon2Player1;
-    }
-
-    public int getNumberHitPokemon1Player2() {
-        return numberHitPokemon1Player2;
-    }
-
-    public void setNumberHitPokemon1Player2(int numberHitPokemon1Player2) {
-        this.numberHitPokemon1Player2 = numberHitPokemon1Player2;
-    }
-
-    public int getNumberHitPokemon2Player2() {
-        return numberHitPokemon2Player2;
-    }
-
-    public void setNumberHitPokemon2Player2(int numberHitPokemon2Player2) {
-        this.numberHitPokemon2Player2 = numberHitPokemon2Player2;
-    }
-
     public String getWinner() {
         return winner;
     }
@@ -161,10 +119,6 @@ public class History {
         sb.append(", pokemon2Player2=").append(pokemon2Player2);
         sb.append(", numberFightPlayer1=").append(numberFightPlayer1);
         sb.append(", numberFightPlayer2=").append(numberFightPlayer2);
-        sb.append(", numberHitPokemon1Player1=").append(numberHitPokemon1Player1);
-        sb.append(", numberHitPokemon2Player1=").append(numberHitPokemon2Player1);
-        sb.append(", numberHitPokemon1Player2=").append(numberHitPokemon1Player2);
-        sb.append(", numberHitPokemon2Player2=").append(numberHitPokemon2Player2);
         sb.append(", winner=").append(winner);
         sb.append('}');
         return sb.toString();

@@ -1,17 +1,20 @@
 package test;
 
-import data.*;
 import gameInteraction.GameImpl;
 import gameInteraction.IGame;
 import java.util.Scanner;
+import report.IReport;
+import reportInteraction.IReportInteraction;
+import reportInteraction.RepIntImplementation;
 
 public class PlayingGame {
     public static void main(String[] args) {
         IGame gameImplementation = new GameImpl();
-        principalMenu(gameImplementation);
+        IReportInteraction history = new RepIntImplementation();
+        principalMenu(gameImplementation, history);
     }
     
-    public static void principalMenu(IGame gameImplementation){
+    public static void principalMenu(IGame gameImplementation, IReportInteraction history){
         System.out.println("***************************************************");
         System.out.println("Welcome to the main Menu, Select an option, please");
         Scanner sc = new Scanner(System.in);
@@ -24,10 +27,10 @@ public class PlayingGame {
                 System.out.println("Enter your password: ");
                 String password = sc.nextLine();
                 if (password.equals("2")) {
-                    admin(gameImplementation);
+                    admin(gameImplementation, history);
                 }else{
                     System.out.println("Incorrect Password!!");
-                    principalMenu(gameImplementation);
+                    principalMenu(gameImplementation, history);
                 }
                 break;
             case 2:
@@ -49,6 +52,7 @@ public class PlayingGame {
                 gameImplementation.showPokemon();
                 String pokemon2Player2 = sc.nextLine();
                 
+                int numberFightPlayer1 = 0;
                 int random = (int) (Math.random()*2);
                 if (random==1) {
                     System.out.println("It is turn of "+player1+" to attack");
@@ -57,21 +61,35 @@ public class PlayingGame {
                     System.out.println("Insert the name of the pokemon to use: ");
                     String use = sc.nextLine();
                     gameImplementation.attack(attackTo, use);
+                    numberFightPlayer1 +=1;
                 }
                 boolean alive;
+                int turn = 2;
+                String winner = "";
+                int numberFightPlayer2 = 0;
                 do{
                     alive = false;
-                    System.out.println("It is turn of to attack");
+                    if ((turn % 2) == 0) {
+                        System.out.println("It is turn of "+player2 +" to attack");
+                        turn =+ 1;
+                        numberFightPlayer1 += 1;
+                    }else{
+                        System.out.println("It is turn of "+player1 +" to attack");
+                        numberFightPlayer2 += 1;
+                        turn =+ 1;
+                    }
                     System.out.println("Insert the name of the pokemon to atack: ");
                     String attackTo = sc.nextLine();
                     System.out.println("Insert the name of the pokemon to use: ");
                     String use = sc.nextLine();
                     gameImplementation.attack(attackTo, use);
                     if (gameImplementation.alive(pokemon1Player1) == false && gameImplementation.alive(pokemon2Player1) == false) {
-                        System.out.println("The winner is "+player2);
+                        winner = player2;
+                        System.out.println("The winner is "+winner);
                         alive = true;
                     }else if(gameImplementation.alive(pokemon1Player2) == false && gameImplementation.alive(pokemon2Player2) == false){
-                        System.out.println("The winner is "+player1);
+                        winner = player1;
+                        System.out.println("The winner is "+winner);
                         alive = true;
                     }else{
                         alive = false;
@@ -79,6 +97,8 @@ public class PlayingGame {
                     
                 }while(alive == false);
                 
+                history.registerOfGames(player1, pokemon1Player1, pokemon2Player1, player2, pokemon1Player2, pokemon2Player2, numberFightPlayer1, numberFightPlayer2, winner);
+                principalMenu(gameImplementation, history);
                 break;
             case 3:
                 System.exit(0);
@@ -89,7 +109,7 @@ public class PlayingGame {
         System.out.println("***************************************************");
     }
     
-    public static void admin(IGame gameImplementation){
+    public static void admin(IGame gameImplementation, IReportInteraction history){
         
         System.out.println("************************************************");
         System.out.println("Welcome again Nelson!! choose an option please: \n"
@@ -103,7 +123,7 @@ public class PlayingGame {
         switch(answer){
             case 1:
                 gameImplementation.showPokemon();
-                admin(gameImplementation);
+                admin(gameImplementation, history);
                 break;
             case 2:
                 System.out.println("Enter the figure: ");
@@ -111,7 +131,7 @@ public class PlayingGame {
                 System.out.println("Enter the name: ");
                 String name = sc.nextLine();
                 gameImplementation.addPokemon(figure, name);
-                admin(gameImplementation);
+                admin(gameImplementation, history);
                 break;
             case 3:
                 System.out.println("What pokemon do you want to edit?");
@@ -121,12 +141,12 @@ public class PlayingGame {
                 System.out.println("Enter the new Name");
                 String name2 = sc.nextLine();
                 gameImplementation.editPokemon(figure2, nameExisted, name2);
-                admin(gameImplementation);
+                admin(gameImplementation, history);
                 break;
             case 4:
-                System.out.println("showing reports");
+                report(gameImplementation, history, sc);
             case 5: 
-                principalMenu(gameImplementation);
+                principalMenu(gameImplementation, history);
                 break;
             default:
                 System.out.println("Enter a correct option");
@@ -135,5 +155,36 @@ public class PlayingGame {
         
     }
     
+    public static void report(IGame gameImplementation, IReportInteraction history, Scanner sc){
+        
+        System.out.println("*******************************************************");
+                System.out.println("Select one option: \n"
+                        + "1. Register's game\n"
+                        + "2. Most used Pokemons\n"
+                        + "3. less used Pokemons\n"
+                        + "4. return to admin");
+                int option = Integer.parseInt(sc.nextLine());
+                switch(option){
+                    case 1:
+                        history.listRegister();
+                        report(gameImplementation, history, sc);
+                        break;
+                    case 2:
+                        history.listMostUsedPokemons();
+                        report(gameImplementation, history, sc);
+                        break;
+                    case 3:
+                        history.listLessUsedPokemons();
+                        report(gameImplementation, history, sc);
+                        break;
+                    case 4:
+                        admin(gameImplementation, history);
+                        break;
+                    default:
+                        System.out.println("Please, insert a correct option");
+                        break;
+                }
+                System.out.println("*******************************************************");
+    }
     
 }
