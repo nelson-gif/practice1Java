@@ -3,7 +3,6 @@ package test;
 import gameInteraction.GameImpl;
 import gameInteraction.IGame;
 import java.util.Scanner;
-import report.IReport;
 import reportInteraction.IReportInteraction;
 import reportInteraction.RepIntImplementation;
 

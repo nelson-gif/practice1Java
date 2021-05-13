@@ -20,6 +20,7 @@ public class HistoryImpl implements IReport {
         numberOfFights = 1;
         usedPokemons = new String[50];
         aux = 0;
+        mostUsed = new AmountOfPokemons[50];
     }
 
     @Override
@@ -39,16 +40,19 @@ public class HistoryImpl implements IReport {
     }
 
     private String[] bubbleSort() {
-        for (History elemento : histories) {
-            /*it adds the pokemons to the string array usedPokemons*/
-            if (elemento != null) {
-                usedPokemons[aux++] = elemento.getPokemon1Player1();
-                usedPokemons[aux++] = elemento.getPokemon1Player2();
-                usedPokemons[aux++] = elemento.getPokemon2Player1();
-                usedPokemons[aux++] = elemento.getPokemon2Player2();
-            } else {
-                break;
+        try{
+            for (History elemento : histories) {
+                /*it adds the pokemons to the string array usedPokemons*/
+                if (elemento != null) {
+                    usedPokemons[aux++] = elemento.getPokemon1Player1();
+                    usedPokemons[aux++] = elemento.getPokemon1Player2();
+                    usedPokemons[aux++] = elemento.getPokemon2Player1();
+                    usedPokemons[aux++] = elemento.getPokemon2Player2();
+                } else {
+                    break;
+                }
             }
+        }catch(Exception e){
         }
 
         /*it uses the bubble sort to order the array */
@@ -84,25 +88,29 @@ public class HistoryImpl implements IReport {
         String auxiliar = bubbleSort()[0];
         /*it counts how many pokemons are repeated and create another array
         that contain pokemon, counter*/
-        for (int i = 0; i < bubbleSort().length; i++) {
-            if (bubbleSort()[i] != null) {
-                if (auxiliar.equals(bubbleSort()[i])) {
-                    contador++;
-                } else {
-                    myObject = new AmountOfPokemons(auxiliar, contador);
-                    mostUsed[contadorAux++] = myObject;
-                    //System.out.println("aux = " + auxiliar+" contador = "+contador);
-                    contador = 1;
-                    auxiliar = bubbleSort()[i];
+        try{
+            for (int i = 0; i < bubbleSort().length; i++) {
+                if (bubbleSort()[i] != null) {
+                    if (auxiliar.equals(bubbleSort()[i])) {
+                        contador++;
+                    } else {
+                        myObject = new AmountOfPokemons(auxiliar, contador);
+                        mostUsed[contadorAux++] = myObject;
+                        //System.out.println("aux = " + auxiliar+" contador = "+contador);
+                        contador = 1;
+                        auxiliar = bubbleSort()[i];
+                    }
+                    if (i == bubbleSort().length - 1) {
+        //                System.out.println("aux = " + auxiliar + " contador = "+contador);
+                        myObject = new AmountOfPokemons(auxiliar, contador);
+                        mostUsed[contadorAux++] = myObject;
+                    }
+                }else{
+                    break;
                 }
-                if (i == bubbleSort().length - 1) {
-    //                System.out.println("aux = " + auxiliar + " contador = "+contador);
-                    myObject = new AmountOfPokemons(auxiliar, contador);
-                    mostUsed[contadorAux++] = myObject;
-                }
-            }else{
-                break;
             }
+        }catch(Exception e){
+            
         }
 
         /*it uses the bubble sort to order the array type object that contains pokemons, counter

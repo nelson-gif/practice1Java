@@ -37,6 +37,7 @@ public class RepIntImplementation implements IReportInteraction{
     @Override
     public void listMostUsedPokemons() {
         int large = history.arrayOrderedWithPokemonsAndCounter().length;
+        
         for (int i = (large-1); i > large/2; i--) {
             if (history.arrayOrderedWithPokemonsAndCounter()[i] != null) {
                 System.out.println("*************************************");
@@ -45,7 +46,7 @@ public class RepIntImplementation implements IReportInteraction{
                 System.out.println("*************************************");
             }
             else{
-                break;
+                
             }
         }
     }
